@@ -1,0 +1,20 @@
+{
+  "name": "mailgun-ghost-throttle-proxy",
+  "version": "1.0.0",
+  "description": "Mailgun-compatible proxy that throttles bulk sends for Ghost newsletters",
+  "type": "module",
+  "scripts": {
+    "start:proxy": "node src/proxy.js",
+    "start:worker": "node src/worker.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bullmq": "^5.12.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "form-data": "^4.0.0",
+    "ioredis": "^5.4.1",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^10.0.0"
+  }
+}

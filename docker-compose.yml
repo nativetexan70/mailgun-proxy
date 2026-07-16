@@ -1,0 +1,32 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+  proxy:
+    build: .
+    command: node src/proxy.js
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      REDIS_HOST: redis
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: node src/worker.js
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      REDIS_HOST: redis
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:
