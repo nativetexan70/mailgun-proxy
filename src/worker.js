@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import axios from 'axios';
 import FormData from 'form-data';
-import { Worker, RateLimiterWorker } from 'bullmq';
+import { Worker } from 'bullmq';
 import { connection } from './queue.js';
 
 const MAILGUN_BASE_URL = process.env.MAILGUN_BASE_URL || 'https://api.mailgun.net';
