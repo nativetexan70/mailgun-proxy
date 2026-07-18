@@ -5,18 +5,20 @@ services:
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes
+    networks:
+      - ghost-net
 
   proxy:
     build: .
     command: node src/proxy.js
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     env_file: .env
     environment:
       REDIS_HOST: redis
     depends_on:
       - redis
+    networks:
+      - ghost-net
 
   worker:
     build: .
@@ -27,6 +29,13 @@ services:
       REDIS_HOST: redis
     depends_on:
       - redis
+    networks:
+      - ghost-net
 
 volumes:
   redis-data:
+
+networks:
+  ghost-net:
+    external: true
+    name: ${GHOST_NETWORK}
